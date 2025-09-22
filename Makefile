@@ -1,7 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
 SRCDIR = src
-TESTDIR = tests
 PORT ?= 5050
 
 # Arquivos fonte
@@ -39,18 +38,4 @@ run-server: $(SERVER)
 run-client: $(CLIENT)
 	./$(CLIENT) 127.0.0.1 $(PORT)
 
-# Executar testes automatizados
-test: all $(TESTDIR)
-	@echo "Executando testes automatizados..."
-	@if [ -f $(TESTDIR)/run_tests.sh ]; then \
-		chmod +x $(TESTDIR)/run_tests.sh; \
-		cd $(TESTDIR) && ./run_tests.sh; \
-	else \
-		echo "Arquivo $(TESTDIR)/run_tests.sh não encontrado!"; \
-	fi
-
-# Criar diretório de testes
-$(TESTDIR):
-	mkdir -p $(TESTDIR)
-
-.PHONY: all server client clean run-server run-client test
+.PHONY: all server client clean run-server run-client
